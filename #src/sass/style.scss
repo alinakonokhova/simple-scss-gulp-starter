@@ -1,0 +1,41 @@
+// <MIXINS>
+@import "mixins";
+// </MIXINS>
+
+// <FONTS>
+@import "fonts";
+@import "icons";
+
+// <Default font>
+$fontFamily: "";
+$fontSize: 16px;
+// </Default font>
+// </FONTS>
+
+// <VARIANTS>
+$minWidth: 320px;
+$maxWidth: 1920px;
+$maxWidthContainer: 1270px;
+$md1: $maxWidthContainer + 12;
+$md2: 991.98;
+$md3: 767.98;
+$md4: 479.98;
+// </VARIANTS>
+
+// <IBG>
+.ibg{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+.ibg img{
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+// </IBG>
