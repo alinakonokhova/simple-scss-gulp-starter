@@ -1,10 +1,10 @@
 // <MIXINS>
-@import "mixins";
+@import "components/mixins";
 // </MIXINS>
 
 // <FONTS>
-@import "fonts";
-@import "icons";
+@import "components/fonts";
+@import "components/icons";
 
 // <Default font>
 $fontFamily: "";
@@ -21,6 +21,14 @@ $md2: 991.98;
 $md3: 767.98;
 $md4: 479.98;
 // </VARIANTS>
+
+//<NULL, GENERAL PARAMETERS>
+@import "components/null";
+body {
+    color: $mainColor;
+    background: #000;
+}
+//</NULL, GENERAL PARAMETERS>
 
 // <IBG>
 .ibg{

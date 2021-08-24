@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="ru">
-    @@include('_head.html')
+    @@include('blocks/head.html')
 <body>
     <div class="wrapper">
-        @@include('_header.html')
-        <main class="page_icon-cart">
+        @@include('blocks/header.html',{
+            "lang": "en",
+            "title": "Gulp SCSS Starter",
+            "description": "Starter pack for easy development",
+            "keywords": ""
+        })
+        <main class="main">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem vel voluptatibus placeat odio, delectus doloremque pariatur, praesentium quis eum quas eligendi voluptas repellat? Ducimus voluptas deserunt commodi et accusantium quae.
         </main>
-        @@include('_footer.html')
+        @@include('blocks/footer.html')
     </div>
-    @@include('_js.html')
-    @@include('_popup.html')
+    @@include('blocks/popup.html')
+    @@include('blocks/js.html')
 </body>
 </html>

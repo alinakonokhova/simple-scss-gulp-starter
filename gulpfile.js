@@ -6,7 +6,7 @@ const browsersync = require('browser-sync').create();
 const plumber = require('gulp-plumber');
 const fileinclude = require('gulp-file-include');
 const del = require('del');
-const sass = require('gulp-sass')(require('sass'));
+const scss = require('gulp-sass')(require('sass'));
 const autoprefixer = require('gulp-autoprefixer');
 const group_media = require('gulp-group-css-media-queries');
 const clean_css = require('gulp-clean-css');
@@ -16,6 +16,12 @@ const imagemin = require('gulp-imagemin');
 const webp = require('gulp-webp');
 const webpcss = require('gulp-webp-css');
 const webphtml = require('gulp-webp-html');
+const fonter = require("gulp-fonter");
+
+const ttf2woff = require("gulp-ttf2woff");
+const ttf2woff2 = require("gulp-ttf2woff2");
+
+const fs = require('fs');
 
 const path = {
    build: {
@@ -26,15 +32,15 @@ const path = {
       fonts: `${project_folder}/fonts`,
    },
    src: {
-      html: [`${src_folder}/*.html`, `!${ src_folder }/_*.html`],
-      css: `${src_folder}/sass/**/*.scss`,
+      html: `${src_folder}/*.html`,
+      css: `${src_folder}/scss/*.scss`,
       js: [`${src_folder}/js/app.js`, `${src_folder}/js/vendors.js`],
       img: `${src_folder}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
       fonts: `${src_folder}/fonts/*.ttf`,
    },
    watch: {
       html: `${src_folder}/**/*.html`,
-      css: `${src_folder}/sass/**/*.scss`,
+      css: `${src_folder}/scss/**/*.scss`,
       js: `${src_folder}/js/**/*.js`,
       img: `${src_folder}/img/**/*.{jpg,png,svg,gif,ico,webp}`,
    },
@@ -71,9 +77,9 @@ function css() {
       src(path.src.css)
          .pipe(plumber())
          .pipe(
-            sass({
+            scss({
                outputstyle: 'expanded',
-            }).on('error', sass.logError),
+            }).on('error', scss.logError)
          )
          .pipe(group_media())
          .pipe(
@@ -82,7 +88,10 @@ function css() {
                cascade: true,
             }),
          )
-         .pipe(webpcss())
+         .pipe(webpcss({
+            webpClass: '.webp',
+            noWebpClass: '.no-webp'
+         }))
          .pipe(dest(path.build.css))
          .pipe(clean_css())
          .pipe(
@@ -90,6 +99,7 @@ function css() {
                extname: '.min.css',
             }),
          )
+         .pipe(dest(path.build.css))
          .pipe(browsersync.stream())
    );
 }
@@ -132,12 +142,12 @@ function images() {
 
 // gulp.task("svgSprite", function () {
 //    return gulp
-//       .src([src_folder + "/iconsprite/*.svg"])
+//       .src([src_folder + "img/iconsprite/*.svg"])
 //       .pipe(
 //          svgSprite({
 //             mode: {
 //                Stack: {
-//                   sprite: "../icons/icons.svg",
+//                   sprite: "../img/icons/icons.svg",
 //                   //example: true
 //                },
 //             },
@@ -146,44 +156,40 @@ function images() {
 //       .pipe(dest(path.build.img));
 // });
 
-// function fonts() {
-//    src(path.src.fonts)
-//       .pipe(ttf2woff())
-//       .pipe(dest(path.build.fonts));
-//    return src(path.src.fonts)
-//       .pipe(ttf2woff2())
-//       .pipe(dest(path.build.fonts));
-// }
+function fonts() {
+   src(path.src.fonts)
+      .pipe(ttf2woff())
+      .pipe(dest(path.build.fonts));
+   return src(path.src.fonts)
+      .pipe(ttf2woff2())
+      .pipe(dest(path.build.fonts));
+}
 
-// function fontsStyle() {
-//    let file_content = fs.readFileSync(src_folder + "/scss/fonts.scss");
-//    if (file_content == "") {
-//       fs.writeFile(src_folder + "/scss/fonts.scss", "", cb);
-//       return fs.readdir(path.build.fonts, function (err, items) {
-//          if (items) {
-//             let c_fontname;
-//             for (let i = 0; i < items.length; i++) {
-//                let fontname = items[i].split(",");
-//                fontname = fontname[0];
-//                if (c_fontname != fontname) {
-//                   fs.appendFile(
-//                      source_folder + "/scss/fonts.scss",
-//                      '@include font("' +
-//                         fontname +
-//                         '", "' +
-//                         fontname +
-//                         '", "400", "normal");\r\n',
-//                      cb
-//                   );
-//                }
-//                c_fontname = fontname;
-//             }
-//          }
-//       });
-//    }
-// }
+function fontsStyle() {
+   let file_content = fs.readFileSync(src_folder + '/scss/components/fonts.scss');
+   if (file_content == '') {
+      fs.writeFile(src_folder + "/scss/components/fonts.scss", '', cb);
+      return fs.readdir(path.build.fonts, function (err, items) {
+         if (items) {
+            let c_fontname;
+            for (var i = 0; i < items.length; i++) {
+               let fontname = items[i].split(".");
+               fontname = fontname[0];
+               if (c_fontname != fontname) {
+                  fs.appendFile(
+                     src_folder + "/scss/components/fonts.scss",
+                     '@include font("' + fontname + '", "' + fontname + '", "400", "normal");\r\n',
+                     cb
+                  );
+               }
+               c_fontname = fontname;
+            }
+         }
+      });
+   }
+}
 
-// function cb() {}
+function cb() {}
 
 // gulp.task("otf2ttf", function () {
 //    return src([src_folder + "/fonts/*.otf"])
@@ -195,16 +201,18 @@ function images() {
 //       .pipe(dest(src_folder + "/fonts/"));
 // });
 
-function watchFiles(params) {
+function watchFiles() {
    gulp.watch(path.watch.html, html);
    gulp.watch(path.watch.css, css);
    gulp.watch(path.watch.js, js);
    gulp.watch(path.watch.img, images);
 }
 
-const build = gulp.series(clean, gulp.parallel(html, css, js, images));
+const build = gulp.series(clean, gulp.parallel(html, css, js, images, fonts), fontsStyle);
 const watch = gulp.parallel(build, watchFiles, browserSync);
 
+exports.fontsStyle = fontsStyle;
+exports.fonts = fonts;
 exports.images = images;
 exports.js = js;
 exports.css = css;

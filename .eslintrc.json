@@ -7,10 +7,15 @@
     "extends": ["airbnb-base"],
     "parserOptions": { "ecmaVersion": 6 },
     "rules" :{
-      "no-unused-vars": ["error", { "caughtErrorsIgnorePattern": "^ignore" }],
-      "linebreak-style": [ // Применять согласованный стиль переноса строки
-        "error",
-        "unix"
-      ]
+      "no-unused-vars": "off",
+      "linebreak-style": "off",
+      "eqeqeq": "off",
+      "no-multi-assign": "off",
+      "no-var": "off",
+      "no-plusplus": "off",
+      "no-shadow": "off",
+      "vars-on-top": "off",
+      "func-names": "off"
+
     }
   }
