@@ -1,3 +1,4 @@
+// ISMOBILE FUNCTION
 const isMobile = {
   Android() {
     return navigator.userAgent.match(/Android/);
@@ -23,10 +24,12 @@ const isMobile = {
   },
 };
 
+//ISMOBILE BODY CLASS ASSIGNMENT
 if (isMobile.any()) {
   document.body.classList.add('_touch');
 }
 
+//WEBP FUNCTION FOR GULPFILE
 function testWebP(callback) {
   var webP = new Image();
   webP.onload = webP.onerror = function () {
@@ -42,6 +45,7 @@ testWebP((support) => {
   }
 });
 
+// IBG
 function ibg() {
   const ibg = document.querySelectorAll('.ibg');
   for (var i = 0; i < ibg.length; i++) {
