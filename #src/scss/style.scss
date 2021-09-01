@@ -4,7 +4,7 @@
 
 // <FONTS>
 @import "components/fonts";
-@import "components/icons";
+// @import "components/icons";
 
 // <Default font>
 $fontFamily: "";
@@ -12,7 +12,7 @@ $fontSize: 16px;
 // </Default font>
 // </FONTS>
 
-// <VARIANTS>
+//<VARIANTS>
 $minWidth: 320px;
 $maxWidth: 1920px;
 $maxWidthContainer: 1270px;
@@ -20,30 +20,88 @@ $md1: $maxWidthContainer + 12;
 $md2: 991.98;
 $md3: 767.98;
 $md4: 479.98;
+
+$mainColor: #000;
 // </VARIANTS>
 
 //<NULL, GENERAL PARAMETERS>
-@import "components/null";
+// @import "components/null";
 body {
     color: $mainColor;
-    background: #000;
+    background: #fff;
+    &._lock {
+        overflow: hidden;
+    }
 }
 //</NULL, GENERAL PARAMETERS>
 
-// <IBG>
+//<SHELL>
+.wrapper {
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    // &._loaded {
+
+    // }
+}
+//</SHELL>
+
+//<MAIN GRID>
+._container {
+    max-width: $maxWidthContainer + px;
+    margin: 0 auto;
+    padding: 0px 15px;
+    @media (max-width: $md1+px) {
+        max-width: 970px;
+    }
+    @media (max-width: $md2+px) {
+        max-width: 750px;
+    }
+    @media (max-width: $md3+px) {
+        max-width: none;
+        padding: 0 10px;
+    }
+}
+//</MAIN GRID>
+
+//<INCLUDING UI STYLES, FORMS AND READY CLASS FILES>
+@import "components/forms";
+// @import "components/ui";
+//</INCLUDING UI STYLES, FORMS AND READY CLASS FILES>
+
+//<INCLUDING PAGE AND ELEMENT STYLE FILES>
+// @import "components/datepicker";
+// @import "components/lightgallery";
+// @import "components/pagging";
+// @import "components/popup";
+@import "components/header";
+@import "components/footer";
+// @import "components/home";
+//</INCLUDING PAGE AND ELEMENT STYLE FILES>
+
+//<MAIN BLOCK>
+
+//<page content>
+
+//</page content>
+
+//</MAIN BLOCK>
+
+// <>
 .ibg{
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
+    & img{
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
 }
-.ibg img{
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    visibility: hidden;
-}
-// </IBG>

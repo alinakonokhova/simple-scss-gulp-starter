@@ -53,7 +53,7 @@ function browserSync(params) {
          baseDir: `./${ project_folder }/`,
       },
       port: 3000,
-      notify: false,
+      notify: true,
    });
 }
 
@@ -68,7 +68,7 @@ function html() {
          .pipe(fileinclude())
          .pipe(webphtml())
          .pipe(dest(path.build.html))
-         .pipe(browsersync.stream())
+         .pipe(browsersync.reload({stream: true}))
    );
 }
 
@@ -100,7 +100,7 @@ function css() {
             }),
          )
          .pipe(dest(path.build.css))
-         .pipe(browsersync.stream())
+         .pipe(browsersync.reload({stream: true}))
    );
 }
 
@@ -137,7 +137,7 @@ function images() {
          })
       )
       .pipe(dest(path.build.img))
-      .pipe(browsersync.stream());
+      .pipe(browsersync.reload({stream: true}))
 }
 
 // gulp.task("svgSprite", function () {

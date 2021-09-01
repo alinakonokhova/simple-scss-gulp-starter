@@ -1,0 +1,80 @@
+
+//Select------------------------------------
+.select{
+  position: relative;
+  &__item {
+    position: relative;
+  }
+  &__title {
+    color: #000;
+    border: 1px solid #d9d9d9;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  &__value {
+    display: flex;
+    font-size: 16px;
+    height: 50px;
+    padding: 0px 20px;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    & span {
+      height: 1em;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+    &::before {
+      content: '';
+      display: inline-block;
+      transition: all 0.3s ease 0s;
+      width: 11px;
+      height: 7px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+    &::before {
+      content: '';
+      display: inline-block;
+      transition: all 0.3s ease 0s;
+      width: 11px;
+      height: 7px;
+      background: url("../../img/icons/check.svg") center / 100% no-repeat;
+    }
+  }
+  &__options {
+    color: #000;
+    display: none;
+    position: absolute;
+    top: 49px;
+    border-radius: 0 0 4px 4px;
+    min-width: 100%;
+    left: 0;
+    background-color: #fff;
+    border-top: 0;
+    border: 1px solid #d9d9d9;
+    border-top: 0;
+    font-size: 16px;
+    padding: 0 0 5px 0;
+  }
+  &__option {
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 0;
+  }
+  &_active {
+    z-index: 5px;
+  }
+  &_active &__value::before {
+    transform: rotate(-180deg);
+  }
+  &_active __options {
+    display: block;
+  }
+}
+//-----------------------------
+
