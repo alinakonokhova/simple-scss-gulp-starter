@@ -1,7 +1,7 @@
 let ua = window.navigator.userAgent;
 const msie = ua.indexOf('MSIE');
 
-const isMobile = {
+let isMobile = {
   Android() {
     return navigator.userAgent.match(/Android/);
   },
@@ -25,6 +25,10 @@ const isMobile = {
      || isMobile.Windows());
   },
 };
+//ISMOBILE BODY CLASS ASSIGNMENT
+if (isMobile.any()) {
+  document.body.classList.add('_touch');
+}
 
 function isIE() {
   ua = navigator.userAgent;
@@ -33,9 +37,6 @@ function isIE() {
 }
 if (isIE()) {
   document.querySelector('html').classList.add('ie');
-}
-if (isMobile.any()) {
-  document.querySelector('html').classList.add('_touch');
 }
 function testWebP(callback) {
   var webP = new Image();

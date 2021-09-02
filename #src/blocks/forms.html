@@ -1,0 +1,125 @@
+<div class="wrapper">
+  <div class="form">
+    <form action="#" id="form" class="form__body">
+      <h1 class="form__title">FORM</h1>
+      <div class="form__item">
+        <label for="formName" class="form__label">Name*:</label>
+        <input id="formName" type="text" name="name" class="form__input" />
+      </div>
+      <div class="form__item">
+        <label for="formEmail" class="form__label">E-mail*:</label>
+        <input
+          id="formEmail"
+          type="text"
+          name="email"
+          class="form__input _req __email"
+        />
+      </div>
+      <div class="form__item">
+        <div class="form__label">Left or Right Handed?</div>
+        <div class="options">
+          <div class="options__item">
+            <input
+              id="formRightHanded"
+              checked
+              value="right"
+              type="radio"
+              name="hand"
+              class="options__input"
+            />
+            <label for="formRightHanded" class="options__label"
+              >Right Handed</label
+            >
+          </div>
+          <div class="options__item">
+            <input
+              id="formLeftHanded"
+              value="left"
+              type="radio"
+              name="hand"
+              class="options__input"
+            />
+            <label for="formLeftHanded" class="options__label"
+              >Left Handed</label
+            >
+          </div>
+        </div>
+      </div>
+      <div class="form__item">
+        <label for="formMessage" class="form__label">Message:</label>
+        <textarea
+          name="message"
+          id="formMessage"
+          class="form__input"
+        ></textarea>
+      </div>
+      <!-- <div class="form__label">Age:</div>
+            <select name="age" class="form__select">
+              <option value="from 18 to 25" selected>Young</option>
+              <option value="from 25 to 45">Old</option>
+              <option value="from 45">Super Star</option>
+            </select> -->
+
+      <div class="form__item">
+        <div class="select-box">
+          <div class="options-container">
+            <div class="option">
+              <input type="radio" class="radio" id="young" name="category" />
+              <label for="young">Young</label>
+            </div>
+
+            <div class="option">
+              <input type="radio" class="radio" id="old" name="category" />
+              <label for="old">Old</label>
+            </div>
+
+            <div class="option">
+              <input
+                type="radio"
+                class="radio"
+                id="superStar"
+                name="category"
+              />
+              <label for="superStar">Super Star</label>
+            </div>
+          </div>
+
+          <div class="selected">Select Your Age</div>
+        </div>
+      </div>
+
+      <div class="form__item">
+        <div class="form__label">Attach Photo</div>
+        <div class="file">
+          <div class="file__item">
+            <input
+              id="formImage"
+              accept=".jpg, .png, .gif"
+              type="file"
+              name="image"
+              class="file__input"
+            />
+            <div class="file__button">Choose</div>
+          </div>
+          <div class="file__preview"></div>
+        </div>
+      </div>
+      <div class="form__item">
+        <div class="ckeckbox">
+          <input
+            id="formAgreement"
+            checked
+            type="checkbox"
+            name="agreement"
+            class="checkbox__input _req"
+          />
+          <label for="formAgreement" class="checkbox__label"
+            ><span>I am giving my consent to data processing according to </span
+            >Conditions</label
+          >
+        </div>
+      </div>
+      <button type="submit" class="form__button"></button>
+    </form>
+  </div>
+</div>
